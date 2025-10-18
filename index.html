@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的回家之路</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --accent-color: #f39c12;
+            --light-color: #fef9e7;
+            --dark-color: #333;
+            --text-color: #555;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--light-color);
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1541807084-5c52b6b3adef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* 章节样式 */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        /* 旅程时间线 */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            top: 20px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+            right: auto;
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-date i {
+            margin-right: 8px;
+        }
+        
+        /* 回忆相册 */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 250px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        /* 家乡地图 */
+        .map-container {
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .map-overlay h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        /* 情感语录 */
+        .quotes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .quote-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 350px;
+            position: relative;
+        }
+        
+        .quote-card::before {
+            content: '"';
+            font-size: 5rem;
+            color: var(--primary-color);
+            opacity: 0.2;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            line-height: 1;
+        }
+        
+        .quote-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quote-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quote-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-content::after {
+                left: -10px;
+                right: auto;
+            }
+            
+            .footer-column {
+                flex: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-home"></i>
+                    <span>我的回家之路</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#journey">回家旅程</a></li>
+                    <li><a href="#memories">家乡回忆</a></li>
+                    <li><a href="#hometown">家乡风貌</a></li>
+                    <li><a href="#contact">联系我</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>我的回家之路</h1>
+            <p>无论身在何方，家永远是心灵的港湾。这是一条充满思念与期盼的归途。</p>
+            <a href="#journey" class="btn">探索我的旅程</a>
+        </div>
+    </section>
+
+    <!-- 回家旅程 -->
+    <section id="journey">
+        <div class="container">
+            <div class="section-title">
+                <h2>回家旅程</h2>
+                <p>记录每一次归途的点点滴滴</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="far fa-calendar-alt"></i>
+                            2023年春节
+                        </div>
+                        <h3>三年后的团圆</h3>
+                        <p>因为疫情阻隔，已经三年没有回家过年了。这一次的归途格外漫长而激动，从订票时的忐忑到踏上归途列车时的喜悦，每一步都充满期待。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="far fa-calendar-alt"></i>
+                            2022年国庆
+                        </div>
+                        <h3>秋天的归途</h3>
+                        <p>金秋十月，家乡的稻田应该已经金黄一片了吧。这次选择自驾回家，沿途欣赏秋天的景色，记录下家乡四季变换的美。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="far fa-calendar-alt"></i>
+                            2021年中秋
+                        </div>
+                        <h3>月是故乡明</h3>
+                        <p>虽然没能回家，但通过视频与家人"云团圆"。看着屏幕那端熟悉的院落和亲人的笑脸，更加坚定了下次一定要回家的决心。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">
+                            <i class="far fa-calendar-alt"></i>
+                            2020年春节
+                        </div>
+                        <h3>特殊的春节</h3>
+                        <p>疫情突然爆发，回家的计划被迫取消。第一次在外地独自过年，虽然孤单，但通过视频与家人互相鼓励，更加珍惜团聚的时光。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 家乡回忆 -->
+    <section id="memories" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="section-title">
+                <h2>家乡回忆</h2>
+                <p>那些刻在心底的温暖画面</p>
+            </div>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544098286-0c36cfb7ff46?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="家乡老街">
+                    <div class="gallery-overlay">
+                        <h3>老街记忆</h3>
+                        <p>那条青石板路，承载了多少童年的欢笑</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="家乡山水">
+                    <div class="gallery-overlay">
+                        <h3>山水之间</h3>
+                        <p>家乡的山，家乡的水，永远是最美的风景</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="家乡美食">
+                    <div class="gallery-overlay">
+                        <h3>妈妈的味道</h3>
+                        <p>无论走到哪里，最怀念的还是家乡的味道</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quotes">
+                <div class="quote-card">
+                    <p class="quote-text">家不仅仅是一间房子，更是心灵的栖息地。无论走多远，回家的路永远是最温暖的方向。</p>
+                    <div class="quote-author">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="作者">
+                        <div>
+                            <h4>李小明</h4>
+                            <p>游子心声</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quote-card">
+                    <p class="quote-text">每次踏上归途，心情都像放飞的风筝，线的那一头，永远系在故乡的屋檐下。</p>
+                    <div class="quote-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="作者">
+                        <div>
+                            <h4>张伟</h4>
+                            <p>思乡游子</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 家乡风貌 -->
+    <section id="hometown">
+        <div class="container">
+            <div class="section-title">
+                <h2>家乡风貌</h2>
+                <p>那片生我养我的土地</p>
+            </div>
+            
+            <div class="map-container">
+                <!-- 这里可以嵌入真实的地图，此处用背景图代替 -->
+                <div style="width:100%;height:100%;background:url('https://images.unsplash.com/photo-1571847140471-1d7766e825ea?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover"></div>
+                <div class="map-overlay">
+                    <h3>我的家乡</h3>
+                    <p>位于江南水乡的一个小镇，有着悠久的历史和丰富的文化底蕴。小桥流水，白墙黛瓦，是我心中永远的风景。</p>
+                    <a href="#" class="btn" style="margin-top:15px;padding:8px 20px;">了解更多</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+			<div class="footer-content">
+				<div class="footer-column" style="text-align: center;">
+					<h3>关于回家之路</h3>
+					<p>这个网站记录了我每一次回家的旅程和心情，分享我对家乡的思念与回忆。希望通过这些文字和图片，能够唤起你对家乡的温暖记忆。</p>
+				</div>
+			</div>
+            <div class="copyright">
+				<ul class="footer-links">
+					<p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025203608号-1</a></p>
+				</ul>
+                <p>&copy; 2025 我的回家之路 | 设计制作: 酒破儿</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if(window.scrollY > 100) {
+                header.style.backgroundColor = 'rgba(230, 126, 34, 0.95)';
+            } else {
+                header.style.backgroundColor = '';
+            }
+        });
+    </script>
+</body>
+</html>
