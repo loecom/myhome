@@ -1,3 +1,6 @@
 {
-  "assets": "."
+  "name": "static-site",
+  "assets": {
+    "directory": "."
+  }
 }
